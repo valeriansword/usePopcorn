@@ -1,6 +1,42 @@
 import React from "react";
 import { useState } from "react";
 
+
+
+function Box({movies}){
+  const [isOpen, setIsOpen] = useState(true);
+    return(
+        <>
+         <div className="box">
+          <button
+            className="btn-toggle"
+            onClick={() => setIsOpen((open) => !open)}
+          >
+            {isOpen ? "–" : "+"}
+          </button>
+          {isOpen && ( <MoviesList movies={movies} />
+            
+          )}
+          
+        </div>
+
+        
+        </>
+    )
+}
+export default Box;
+function MoviesList({movies}){
+  return(
+    <>
+     <ul className="list">
+              {movies?.map((movie) => (
+                <Movie movie={movie} key={movie.imdbID}/>
+              ))}
+            </ul>
+    </>
+  )
+
+}
 function Movie({movie}){
   return(<>
        <li >
@@ -16,36 +52,3 @@ function Movie({movie}){
   
   </>)
 }
-function MoviesList({movies}){
-  return(
-    <>
-     <ul className="list">
-              {movies?.map((movie) => (
-                <Movie movie={movie} key={movie.imdbID}/>
-              ))}
-            </ul>
-    </>
-  )
-}
-function ListBox({movies}){
-  const [isOpen1, setIsOpen1] = useState(true);
-    return(
-        <>
-         <div className="box">
-          <button
-            className="btn-toggle"
-            onClick={() => setIsOpen1((open) => !open)}
-          >
-            {isOpen1 ? "–" : "+"}
-          </button>
-          {isOpen1 && (
-            <MoviesList movies={movies} />
-          )}
-          
-        </div>
-
-        
-        </>
-    )
-}
-export default ListBox;

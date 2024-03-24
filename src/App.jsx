@@ -4,14 +4,20 @@ import Navbar from "./Components/Navbar";
 // import Movies from "./Components/Movies";
 import Body from "./Components/Body";
 import tempMovieData from "./Utils/tempMovieData";
+import Box from "./Components/ListBox";
 
+
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+import WatchedMovies from "./Components/WatchedMovies";
 
 export default function App() {
-    const key="e746763b";
+
+   const key="e746763b";
   const [movies, setMovies] = useState(tempMovieData);
   const [query,setQuery]=useState();
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
+ 
   
   useEffect(()=>{
    
@@ -45,15 +51,35 @@ export default function App() {
 
   return (
     <>
-      <Navbar  movies={movies} query={query} setQuery={setQuery}/>
+      <Navbar movies={movies} query={query} setQuery={setQuery} />
+    
+
+
       {/* {loading ?<p>Loading</p>:<Body movies={movies} />} */}
+     
+      <BrowserRouter>
       {
         loading && (<p>Loading....</p>)
       }
-      {
-        !loading && !error && (<Body movies={movies} />)
-      }
-      {error && (<p>{error}</p>)}
+       {
+        !loading && !error && (
+      <Routes>
+      {/* <Body movies={movies}/> */}
+        
+          
+      <Route path="/usePopcorn" element={<Body movies={movies}/>} ></Route>
+              
+             
+           
+           
+        
+      
+        <Route></Route>
+      </Routes>)
+            }{error && (<p>{error}</p>)}
+           
+      </BrowserRouter>
+       
     
        
 
@@ -62,3 +88,10 @@ export default function App() {
     </>
   );
 }
+//Navbar
+
+
+//Listbox
+
+
+//watchedSummary

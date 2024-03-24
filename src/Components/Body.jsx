@@ -1,12 +1,12 @@
 import React from "react";
-import ListBox from "./ListBox";
+import Box from "./ListBox";
 import WatchedMovies from "./WatchedMovies";
 function Body({movies}){
     return(
     <>
           <main className="main">
-             <ListBox movies={movies} />
-             <WatchedMovies />
+          <Box movies={movies}/>
+          <WatchedMovies />
           </main>
     </>
     
