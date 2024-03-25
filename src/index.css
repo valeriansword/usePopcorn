@@ -139,11 +139,11 @@ body {
 .list {
   list-style: none;
   padding: 0.8rem 0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .list-watched {
-  height: calc(100% - 9rem);
+  height: calc(100%-9rem);
 }
 
 .list li {
@@ -170,6 +170,7 @@ body {
 
 .list img {
   width: 100%;
+  cursor:pointer;
   grid-row: 1 / -1;
 }
 

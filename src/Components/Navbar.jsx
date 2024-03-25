@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate,Link } from "react-router-dom";
 function Logo(){
   return(<div className="logo">
         <span role="img">🍿</span>
@@ -23,7 +23,7 @@ function Navbar({movies,query,setQuery}){
   const handleEvent=(event)=>{
     if(event.key==="Enter"){
       setQuery('')
-      navigate(`/usePopcorn/${query}`)
+      navigate(`/usePopcorn/SearchedMovies/${query}`);
       
     }
   
@@ -31,7 +31,7 @@ function Navbar({movies,query,setQuery}){
     return(
         <>
       <nav className="nav-bar">
-        <Logo />
+       <Link to="/usePopcorn/" style={{textDecoration:"none"}}><Logo /></Link> 
         <input
         className="search"
         type="text"
