@@ -18,6 +18,7 @@ export default function App() {
   const [query,setQuery]=useState();
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState("");
+  const [selectedId,setSelectedId]=useState("");
  
   
 //   useEffect(()=>{
@@ -47,7 +48,9 @@ export default function App() {
 //   fetchMovies()
 // },[])
   
-
+function closeMovie(){
+  setSelectedId(null);
+}
   
 
   return (
@@ -69,12 +72,12 @@ export default function App() {
       {/* <Body movies={movies}/> */}
         
           
-      <Route path="/usePopcorn" element={<Body movies={movies}/>} ></Route>
-       <Route path="/usePopcorn/SearchedMovies/:searchedItem" element={<SearchedMovies movies={movies} setMovies={setMovies} />}></Route>
+      <Route path="/usePopcorn" element={<Body movies={movies} closeMovie={closeMovie} selectedId={selectedId} setSelectedId={setSelectedId}/>} ></Route>
+       <Route path="/usePopcorn/SearchedMovies/:searchedItem" element={<SearchedMovies movies={movies} selectedId={selectedId} setSelectedId={setSelectedId} setMovies={setMovies} />}></Route>
              
            
            
-        
+         
       
         <Route></Route>
       </Routes> {/*)

@@ -2,42 +2,23 @@ import Reavt from "react";
 import { useParams } from "react-router-dom";
 import {useState,useEffect} from "react"
 import axios from "axios";
-function SearchedMovies({movies,setMovies}){
+function SearchedMovies({movies,setMovies,setSelectedId,selectedId}){
     const key="e746763b";
     const [isOpen, setIsOpen] = useState(true);
     const [loading,setLoading]=useState(false);
     // const [searchedMovies, setSearchedMovies] = useState();
     const [error,setError]=useState("");
    let {searchedItem}=useParams();
-  console.log(searchedItem);
+  // console.log(searchedItem);
   useEffect(()=>{
    
         axios.get(`http://www.omdbapi.com/?apikey=${key}&s=${searchedItem}`).
         then(res=>{setMovies(res.data.Search)}).
         catch(err=>{console.log(err)})
-//     async function fetchMovies(){ 
-//      try{
-//      setLoading(true);
-//      setError("");
-//      const res= await fetch(`http://www.omdbapi.com/?apikey=${key}&s=${searchedItem}`)
-//      if(!res.ok)
-//        throw new Error("something went wrong");
-  
-//      const data=await res.json();
-//      if(data.Response==="False")
-//        throw new Error("Movies not found");
- 
-//      setSearchedMovies(data.Search);
-//      console.log(data);
-//    }catch(err){
-//      console.error(err.message);
-//      setError(err.message);
- 
-//    }finally{
-//      setLoading(false);
-//    }}
-//    fetchMovies()
- },[searchedItem])
+ },[searchedItem]);
+ function handleSubmitMovie(id){
+  setSelectedId((selectedId)=>id===selectedId?null:id);
+}
    
     return(
         <>
@@ -48,7 +29,8 @@ function SearchedMovies({movies,setMovies}){
           >
             {isOpen ? "–" : "+"}
           </button>
-          {isOpen && ( <MoviesList movies={movies} />
+          {isOpen && ( <MoviesList movies={movies} onSubmitMovie={handleSubmitMovie
+          }/>
             
           )}
           
@@ -59,21 +41,21 @@ function SearchedMovies({movies,setMovies}){
 export default SearchedMovies;
 
 
-function MoviesList({movies}){
+function MoviesList({movies,onSubmitMovie}){
     return(
       <>
        <ul className="list">
                 {movies?.map((movie) => (
-                  <Movie movies={movie} key={movie.imdbID}/>
+                  <Movie movies={movie} onSubmitMovie={onSubmitMovie} key={movie.imdbID}/>
                 ))}
               </ul>
       </>
     )
   
   }
-  function Movie({movies}){
+  function Movie({movies,onSubmitMovie}){
     return(<>
-         <li >
+         <li onClick={()=>{onSubmitMovie(movies.imdbId)}}>
                     <img src={movies.Poster} alt={`${movies.Title} poster`} />
                     <h3>{movies.Title}</h3>
                     <div>

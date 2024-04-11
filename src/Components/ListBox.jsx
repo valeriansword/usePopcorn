@@ -3,8 +3,12 @@ import { useState } from "react";
 
 
 
-function Box({movies}){
+function Box({movies,setSelectedId,selectedId}){
   const [isOpen, setIsOpen] = useState(true);
+  function handleSubmitMovie(id){
+    setSelectedId((selectedId)=>id===selectedId?null:id);
+  }
+  
     return(
         <>
         
@@ -17,7 +21,8 @@ function Box({movies}){
             {isOpen ? "–" : "+"}
           </button>
           
-          {isOpen && ( <MoviesList movies={movies} />
+          {isOpen && ( <MoviesList movies={movies} onSubmitMovie={handleSubmitMovie
+          }/>
             
           )}
           {!isOpen && (<NoMoviesList />)}
@@ -28,6 +33,7 @@ function Box({movies}){
     )
 }
 export default Box;
+
 function NoMoviesList(){
   return(
     <>
@@ -48,26 +54,26 @@ function NoMoviesList(){
 
 }
 
-function MoviesList({movies}){
+function MoviesList({movies,onSubmitMovie}){
   return(
     <>
-     <ul className="list">
+     <ul className="list list-movies">
               {movies?.map((movie) => (
-                <Movie movie={movie} key={movie.imdbID}/>
+                <Movie movie={movie} key={movie.imdbID} onSubmitMovie={onSubmitMovie}/>
               ))}
             </ul>
     </>
   )
-
+ 
 }
 
-function Movie({movie}){
-  const handleAdd=(selectedMovie)=>{
-    console.log(selectedMovie);
-  }
+function Movie({movie,onSubmitMovie}){
+  // const handleAdd=(selectedMovie)=>{
+  //   console.log(selectedMovie);
+  
   return(<>
-       <li >
-                  <img onClick={handleAdd(movie)} src={movie.Poster} alt={`${movie.Title} poster`} />
+       <li onClick={()=>{onSubmitMovie(movie.imdbID)}} >
+                  <img  src={movie.Poster} alt={`${movie.Title} poster`} />
                   <h3>{movie.Title}</h3>
                   <div>
                     <p>
