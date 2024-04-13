@@ -54,6 +54,14 @@ function MovieDetail({selectedId,closeMovie,onWatchedAdd,watched,setUserRating,u
     Director:director,
     Genre:genre
   }=movie;
+  useEffect(()=>{
+    if(!title) return;
+   
+    document.title=`Movie | ${title}`
+    return function(){
+      document.title="UsePopcorn"
+    }
+  },[title])
   async function fetchData(){
     setLoading(true);
     let response=await axios.get(`http://www.omdbapi.com/?apikey=e746763b&i=${selectedId}`);
@@ -64,7 +72,7 @@ function MovieDetail({selectedId,closeMovie,onWatchedAdd,watched,setUserRating,u
 
   useEffect(()=>{
     fetchData();
-  },[selectedId]);
+  },[]);
   function handleAdd(){
     const newWatchedMovie={
       imdbId:selectedId,
@@ -128,14 +136,14 @@ function MovieDetail({selectedId,closeMovie,onWatchedAdd,watched,setUserRating,u
            </div>
       <p><em>{plot}</em></p>
       <p>staring:{actors}</p>
-      <p>{director}</p>
+      <p>director:{director}</p>
     </section>
 
     </>
     
     }
    
-    {selectedId}
+    {/* {selectedId} */}
     </div>)
 
 }

@@ -73,7 +73,7 @@ function closeMovie(){
         
           
       <Route path="/usePopcorn" element={<Body movies={movies} closeMovie={closeMovie} selectedId={selectedId} setSelectedId={setSelectedId}/>} ></Route>
-       <Route path="/usePopcorn/SearchedMovies/:searchedItem" element={<SearchedMovies movies={movies} selectedId={selectedId} setSelectedId={setSelectedId} setMovies={setMovies} />}></Route>
+       <Route path="/usePopcorn/SearchedMovies/:searchedItem" element={<SearchedMovies closeMovie={closeMovie} movies={movies} selectedId={selectedId} setSelectedId={setSelectedId} setMovies={setMovies} />}></Route>
              
            
            
